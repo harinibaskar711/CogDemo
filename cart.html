@@ -54,44 +54,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </p>
 
                 <a href="product.html" class="btn btn-primary mt-3">Continue Shopping</a>
+                <a href="tqpage.html" class="btn btn-primary mt-3">Purchase</a>
             </div>
         </div>
     </div>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const cartItemsDiv = document.getElementById("cart-items");
-        const totalDiv = document.getElementById("cart-total");
-        const emptyMsg = document.getElementById("empty-msg");
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartItemsDiv = document.getElementById("cart-items");
+const totalDiv = document.getElementById("cart-total");
+const emptyMsg = document.getElementById("empty-msg");
 
-        function renderCart() {
-            if (cart.length === 0) {
-                emptyMsg.style.display = "block";
-                totalDiv.style.display = "none";
-                return;
-            }
+function renderCart() {
+    if (cart.length === 0) {
+        emptyMsg.style.display = "block";
+        totalDiv.style.display = "none";
+        return;
+    }
 
-            let total = 0;
-            cartItemsDiv.innerHTML = "";
+    emptyMsg.style.display = "none";
+    totalDiv.style.display = "block";
+    let total = 0;
+    cartItemsDiv.innerHTML = "";
 
-            cart.forEach(item => {
-                total += item.price;
-                cartItemsDiv.innerHTML += `
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span>${item.name}</span>
-                        <span class="text-primary">₹${item.price}</span>
-                    </div>
-                `;
-            });
+    cart.forEach((item, index) => {
+        total += item.price;
+        cartItemsDiv.innerHTML += `
+            <div class="d-flex justify-content-between border-bottom py-2 align-items-center">
+                <span>${item.name}</span>
+                <span class="text-primary">₹${item.price.toFixed(2)}</span>
+                <button class="btn btn-sm btn-danger ms-2" onclick="removeItem(${index})">Remove</button>
+            </div>
+        `;
+    });
 
-            totalDiv.textContent = "Total: ₹" + total.toFixed(2);
-        }
+    totalDiv.textContent = "Total: ₹" + total.toFixed(2);
+}
 
-        renderCart();
-    </script>
+function removeItem(index) {
+    cart.splice(index, 1); // remove item from array
+    localStorage.setItem("cart", JSON.stringify(cart)); // update storage
+    renderCart(); // re-render cart
+}
+
+renderCart();
+</script>
+
 
 </body>
 
 </html>
+
 
 
