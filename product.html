@@ -365,8 +365,12 @@ function addToCart(name, price) {
     });
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Redirect to thank you page after adding
+    window.location.href = "tqpage.html";
 }
 </script>
+
 
     <!-- Footer End -->
 
@@ -389,6 +393,7 @@ function addToCart(name, price) {
 
 
 </html>
+
 
 
 
