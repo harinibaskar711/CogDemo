@@ -355,6 +355,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </div>
+    <script>
+function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+</script>
+
     <!-- Footer End -->
 
 
@@ -376,4 +389,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 </html>
+
 
