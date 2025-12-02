@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Your Cart</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="text-primary m-0">Hairnic</h1>
+                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="product.html" class="nav-item nav-link">Products</a>
+                        <a href="cart.html" class="nav-item nav-link active">Cart</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="container-fluid bg-primary hero-header mb-5">
+        <div class="container text-center py-5">
+            <h1 class="display-4 text-white mb-3">Your Cart</h1>
+        </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 bg-light p-4 rounded shadow-sm">
+                <h3 class="text-dark mb-4">Items in your cart</h3>
+
+                <div id="cart-items"></div>
+
+                <h4 id="cart-total" class="text-dark mt-4"></h4>
+
+                <p id="empty-msg" class="text-center text-secondary mt-4" style="display:none;">
+                    Your cart is empty.
+                </p>
+
+                <a href="product.html" class="btn btn-primary mt-3">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItemsDiv = document.getElementById("cart-items");
+        const totalDiv = document.getElementById("cart-total");
+        const emptyMsg = document.getElementById("empty-msg");
+
+        function renderCart() {
+            if (cart.length === 0) {
+                emptyMsg.style.display = "block";
+                totalDiv.style.display = "none";
+                return;
+            }
+
+            let total = 0;
+            cartItemsDiv.innerHTML = "";
+
+            cart.forEach(item => {
+                total += item.price;
+                cartItemsDiv.innerHTML += `
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span>${item.name}</span>
+                        <span class="text-primary">₹${item.price}</span>
+                    </div>
+                `;
+            });
+
+            totalDiv.textContent = "Total: ₹" + total.toFixed(2);
+        }
+
+        renderCart();
+    </script>
+
+</body>
+
+</html>
